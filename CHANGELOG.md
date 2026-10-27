@@ -14,6 +14,45 @@ A versão aparece no rodapé, na Área do Professor e no placar PNG, e fica grav
 
 ---
 
+## [0.5.1-alpha] · 2026-10-27
+
+### Desempenho no celular
+Medido com Chromium simulando celular (390 px, processador 6 vezes mais lento). Os números são o tempo gasto pintando e rasterizando a tela.
+
+| Tela | Parada, antes | Parada, depois | Rolando, antes | Rolando, depois |
+|---|---|---|---|---|
+| Início | 1.390 ms a cada 2,5 s | ~0 ms | 1.040 ms | 24 ms |
+| Mapa | 660 ms | ~0 ms | 920 ms | 58 ms |
+| Abertura do andar | 430 ms | 23 ms | 580 ms | 31 ms |
+| Desafio | 315 ms | ~0 ms | 370 ms | 43 ms |
+
+**Causas e correções:**
+- **Filtro de ruído SVG das bordas "rasgadas":** era refeito a cada quadro em todos os painéis. Foi trocado por um recorte (`clip-path`) estático com o mesmo efeito.
+- **Animações infinitas** do botão pulsando, do brilho do treino, do halo e do marcador do mapa e dos olhos do Bit: mexiam em sombra e em elementos dentro do SVG, o que obriga o navegador a repintar. Agora animam só transform e opacidade, numa camada própria que a placa de vídeo move sem repintar. O halo e o marcador do mapa viraram camadas HTML por cima do SVG parado.
+- **Fundos dos temas:** usavam `background-attachment: fixed`, que repinta tudo ao rolar. Foram para uma camada fixa própria.
+- **Cabeçalho:** perdeu o desfoque de fundo (`backdrop-filter`), que era caro ao rolar.
+- **Ilustrações do guia:** se mexiam alterando `left`/`top`, o que refaz o layout. Agora usam `transform`.
+- **Grimório:** as saídas dos exemplos ficam em memória e não são recalculadas a cada tela.
+
+### Contraste (WCAG 2.1 AA)
+- **Medição:** cada texto foi comparado com os pixels reais do fundo. A tela é fotografada duas vezes, com e sem o texto, porque o axe-core não consegue avaliar fundos com degradê. Foram 37 telas (todas as telas e todos os temas, em computador e celular).
+- **Resultado:** antes, 147 textos estavam abaixo do mínimo (4,5:1 para texto normal, 3:1 para texto grande). Depois, **0**.
+- **Causa principal:** os componentes que são sempre escuros (código, exemplos, terminal, cabeçalho, explicações, barra inferior do celular) herdavam a cor de texto do tema. No tema claro do Andar 4, isso deixava texto escuro sobre fundo escuro, que é o caso relatado pelo professor. Esses componentes agora têm cor de texto própria.
+- **Andar 3 (GTA):** o degradê laranja ficou mais escuro, para o texto branco ter contraste.
+- **Andar 4 (Colossus):**
+  - fundo mais claro;
+  - cinza secundário mais escuro;
+  - verde dos botões mais escuro;
+  - botões e etiquetas claros com texto escuro.
+- **Outros ajustes:**
+  - passar o mouse num botão não troca mais a cor do texto;
+  - os itens sem estoque na Loja apagam só o ícone, e não mais o nome;
+  - o subtítulo da tela inicial ganhou uma faixa escura atrás;
+  - o texto secundário no pergaminho ficou mais escuro;
+  - o botão "Sem leitura em voz alta" perdeu a transparência.
+
+---
+
 ## [0.5.0-alpha] · 2026-10-27
 
 ### Novo: o jogo passa a ensinar
