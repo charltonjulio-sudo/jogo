@@ -14,6 +14,47 @@ A versão aparece no rodapé, na Área do Professor e no placar PNG, e fica grav
 
 ---
 
+## [0.6.0-alpha] · 2026-10-27
+
+### Corrigido
+- **Pixel art: o pincel ficava "preso".** O aviso de "soltei o mouse" era registrado só uma vez. Depois do primeiro traço, passar o mouse por cima já pintava.
+  - Agora só pinta com o botão apertado ou o dedo encostado, usando captura de ponteiro e checagem do botão a cada movimento.
+  - Ganhou o botão **Desfazer**, com até 30 passos.
+- **Jogo da velha "sem inteligência".** A IA jogava ao acaso em 25% das vezes. Agora há 3 níveis, e o aluno alterna quem começa a cada partida:
+
+  | Nível | Como joga | Aluno chutando vence | Aluno atento vence |
+  |---|---|---|---|
+  | Aprendiz | às vezes se distrai | 18% | 56% |
+  | Cavaleiro | ganha, bloqueia, monta armadilha dupla e prefere o centro | 1% | 10% |
+  | Mestre da Dungeon | perfeito (minimax); o melhor resultado possível é empate | 0% | 0% |
+
+  Os números vêm de 1.000 partidas simuladas por linha. O Mestre também comenta quando bloqueia ou arma uma armadilha.
+
+### Novo
+- **Caça-palavras do Python (no Grimório, aberto a todos).**
+  - Usa só palavras dos andares que o aluno já alcançou.
+  - Cada palavra achada mostra o que ela faz no Python (exemplo: "APPEND · coloca no fim da lista").
+  - As palavras ficam na horizontal, na vertical ou na diagonal, nunca de trás para a frente.
+  - Funciona com dois toques: na primeira e na última letra.
+- **Caça ao seu nome (no Grimório).** O nome e o sobrenome do aluno ficam escondidos no meio de palavras do Python. Achar todos dá o **Brasão "Lenda da Dungeon"**, em PNG, com nome, colégio, turma e estrelas oficiais.
+- **Mural da Montanha (Área do Professor → Mural).**
+  - **A montanha:** tem 8 faixas temáticas. Na base fica o Acampamento; depois vêm os 6 andares, cada um com as cores do seu tema; o cume, "A Mão de Deus", é de quem tem 18 estrelas.
+  - **Onde cada aluno aparece:** na faixa do último andar que venceu. Dentro da faixa, os alunos são ordenados por estrelas.
+  - **Filtros:** colégio, turma e forma de mostrar o nome ("primeiro nome + inicial", que é o padrão, "nome completo" ou "só o número").
+  - **Projeção:** tem botão de tela cheia para projetar.
+  - **De onde vêm os dados:**
+    1. o que foi validado na aba Auditoria (PNGs ou planilha colada);
+    2. opcionalmente, a planilha do Google Forms "Publicada na Web" como CSV, relida a cada 30 segundos enquanto o mural estiver aberto.
+  - **Regras:** só entram códigos válidos e, de cada aluno, fica a entrega mais recente.
+
+### Verificado
+- **Contraste:** as telas novas (caça-palavras, caça ao nome, Sala Secreta e mural) ficaram com 0 textos abaixo do WCAG AA, em 1280 px e em 390 px.
+- **Gerador do caça-palavras:** 500 tabuleiros gerados, 0 falhas.
+- **Regressão:** a bateria inteira passou.
+- **Leitura da planilha:** testada com dados simulados. A leitura de uma planilha do Google de verdade não pôde ser testada daqui.
+
+---
+
 ## [0.5.1-alpha] · 2026-10-27
 
 ### Desempenho no celular
