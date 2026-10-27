@@ -14,6 +14,31 @@ A versão aparece no rodapé, na Área do Professor e no placar PNG, e fica grav
 
 ---
 
+## [0.5.0-alpha] · 2026-10-27
+
+### Novo: o jogo passa a ensinar
+- **"Por que funcionou" (no acerto).** Mostra cada linha do programa com a explicação dela. Exemplo: o que o `:.2f` faz, por que o `+ 1` no fim da contagem, por que o total começa em zero fora da repetição. Logo abaixo vêm os conceitos usados no desafio, com exemplo.
+- **"Entenda o raciocínio" (no erro).** Não cita nenhum comando. Tem três partes:
+  - **Pista:** quando há peça falsa no programa, explica a lógica do engano daquela peça. Exemplo: "10% de desconto em 500 não é tirar 10, é tirar 50".
+  - **O que o erro quer dizer:** traduz a mensagem do Python para o raciocínio. Por exemplo: "uma linha usa uma caixa ANTES de ela existir" ou "o sinal de mais tentou grudar texto com número".
+  - **O caminho do programa, em palavras:** os passos da solução, sem código.
+- **"O que você vai usar neste andar".** Na abertura de cada andar aparecem os conceitos novos daquele andar, cada um com explicação, exemplo e a saída do exemplo. Os exemplos são diferentes das respostas.
+- **Grimório (menu).** Reúne os 26 conceitos de Python. Os de cada andar abrem quando o aluno chega nele.
+- **Área do Professor → Desafios:** mostra a explicação de acerto, a pista de cada peça falsa e o caminho em palavras.
+- **Auto-teste:** passou de 48 para 50 verificações (explicações completas e exemplos do Grimório rodando).
+
+### Verificado
+- **Desafios:** os 25 (24 + treino) têm explicação para cada linha, uma pista para cada peça falsa e o caminho em palavras.
+- **Textos de erro:** nenhuma pista, caminho ou tradução cita comando do Python. Isso é conferido automaticamente.
+- **Exemplos do Grimório:** os 26 têm a mesma saída no jogo e no Python 3.13 (o de sorteio só é conferido para rodar sem erro).
+- **Tradutor de erros:** forcei 290 erros (peça falsa, degrau errado, linhas trocadas) e todos ganharam uma tradução específica, não a genérica.
+
+### Mudou
+- **Botão "Próximo desafio":** no resultado do desafio, ele aparece antes e depois da explicação, para não precisar rolar a tela.
+- **Guia:** a página "Executar e corações" explica os dois painéis novos.
+
+---
+
 ## [0.4.1-alpha] · 2026-10-27
 
 ### Corrigido

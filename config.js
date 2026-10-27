@@ -1,4 +1,4 @@
-// Configuração opcional da Dungeon do Python II (v0.4.1-alpha).
+// Configuração opcional da Dungeon do Python II (v0.5.0-alpha).
 // Fica na mesma pasta do index.html. Se este arquivo não existir, o jogo usa os padrões.
 // Para trocar a palavra-passe: Área do Professor > Ferramentas > "Trocar a palavra-passe" gera o senhaHash.
 window.DUNGEON_CONFIG = {
