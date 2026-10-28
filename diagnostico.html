@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="only light">
+<title>Diagnóstico do navegador</title>
+<style>
+:root { color-scheme: only light; --papel: #fbfbf7; --fundo: #e6e9ee; --tinta: #23252b; --tinta2: #474c58; --caneta: #1f3a93; --postit: #ffe066; --revisao: #b3261e; --carimbo: #1e7a46; --linha: #cfd4dd; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--fundo); color: var(--tinta); font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif; }
+header { background: var(--caneta); color: #fff; padding: 14px 16px; }
+header h1 { margin: 0; font-size: 1.4rem; }
+header p { margin: 4px 0 0; color: #dfe5f6; }
+main { max-width: 760px; margin: 0 auto; padding: 16px; }
+section { background: var(--papel); border: 1px solid var(--linha); border-radius: 6px; padding: 16px; margin-bottom: 14px; }
+h2 { font-size: 1.15rem; margin: 0 0 8px; }
+table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+td { border-bottom: 1px solid var(--linha); padding: 6px 4px; vertical-align: top; }
+td:first-child { font-weight: 600; width: 46%; }
+.ok { color: var(--carimbo); font-weight: 700; }
+.ruim { color: var(--revisao); font-weight: 700; }
+.btn { font: inherit; font-weight: 600; min-height: 44px; padding: 8px 14px; border-radius: 6px; border: 2px solid #7d8597; background: #fff; color: var(--tinta); cursor: pointer; }
+.btn.pri { background: var(--caneta); border-color: var(--caneta); color: #fff; }
+.btn.sel { background: var(--postit); border-color: #a8860d; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+.amostras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.amostras div { padding: 14px 8px; text-align: center; font-weight: 700; border: 1px solid var(--linha); border-radius: 4px; }
+.icos { display: flex; gap: 14px; }
+.icos svg { width: 40px; height: 40px; color: var(--tinta); }
+#arrasta-area { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+#cartao { touch-action: none; user-select: none; padding: 12px 16px; background: #fff; border: 1px solid var(--linha); border-left: 5px solid var(--caneta); border-radius: 4px; cursor: grab; }
+#alvo { min-width: 160px; min-height: 64px; border: 3px dashed #7d8597; border-radius: 6px; display: grid; place-items: center; padding: 8px; color: var(--tinta2); }
+#alvo.cheio { border-color: var(--carimbo); color: var(--carimbo); font-weight: 700; }
+textarea { width: 100%; min-height: 110px; font: 13px/1.4 ui-monospace, Menlo, Consolas, monospace; border: 2px solid #7d8597; border-radius: 6px; padding: 8px; background: #fff; color: var(--tinta); }
+.aviso { background: var(--postit); border-left: 5px solid #a8860d; padding: 10px 12px; border-radius: 4px; }
+:focus-visible { outline: 3px solid var(--caneta); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<header><h1>Diagnóstico do navegador</h1><p>Torre Horizonte e Dungeon do Python · leva 2 minutos</p></header>
+<main>
+  <div id="samsung" class="aviso" hidden>
+    <b>Você está no navegador da Samsung.</b> Se algo aparecer estranho nos jogos, abra no Chrome:
+    <div class="row"><a class="btn pri" id="abrir-chrome" href="#">Abrir no Chrome</a></div>
+  </div>
+  <section>
+    <h2>1. Verificação automática</h2>
+    <p>O que este aparelho consegue fazer. Não precisa mexer em nada.</p>
+    <table id="auto"><tr><td>Verificando…</td><td></td></tr></table>
+  </section>
+  <section>
+    <h2>2. Cores</h2>
+    <p>Os três quadrados aparecem assim: <b>branco com letra preta</b>, <b>azul com letra branca</b> e <b>amarelo com letra preta</b>?</p>
+    <div class="amostras" aria-hidden="true"><div style="background:#fff;color:#000">Branco</div><div style="background:#1f3a93;color:#fff">Azul</div><div style="background:#ffe066;color:#000">Amarelo</div></div>
+    <div class="row" data-pergunta="cores"><button class="btn" data-v="1">Sim, igual</button><button class="btn" data-v="0">Não, as cores estão trocadas ou escuras</button></div>
+  </section>
+  <section>
+    <h2>3. Ícones</h2>
+    <p>Os ícones abaixo aparecem com traço <b>escuro e nítido</b> (não cinza clarinho nem sumidos)?</p>
+    <div class="icos" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4h10v17M15 9h4v12M3 21h18"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.2a4.2 4.2 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5.5 5.5"/></svg>
+    </div>
+    <div class="row" data-pergunta="icones"><button class="btn" data-v="1">Sim, nítidos</button><button class="btn" data-v="0">Não, cinza ou sumidos</button></div>
+  </section>
+  <section>
+    <h2>4. Arrastar</h2>
+    <p>Arraste o cartão até a caixa tracejada (com o dedo ou o mouse).</p>
+    <div id="arrasta-area"><div id="cartao">Cartão</div><div id="alvo">Solte aqui</div></div>
+  </section>
+  <section>
+    <h2>5. Voz</h2>
+    <p>Toque em Ouvir. Você escutou uma frase em português?</p>
+    <div class="row"><button class="btn pri" id="ouvir">Ouvir</button></div>
+    <div class="row" data-pergunta="voz"><button class="btn" data-v="1">Sim, ouvi</button><button class="btn" data-v="0">Não ouvi nada</button><button class="btn" data-v="2">Ouvi, mas em outra língua</button></div>
+  </section>
+  <section>
+    <h2>6. Enviar o resultado</h2>
+    <p>Copie o código abaixo e mande para o professor (ou cole na conversa com o Claude).</p>
+    <textarea id="codigo" readonly aria-label="Código do diagnóstico"></textarea>
+    <div class="row"><button class="btn pri" id="copiar">Copiar código</button><span id="copiado" role="status"></span></div>
+  </section>
+</main>
+<script>
+(() => {
+  'use strict';
+  const R = { v: 1, quando: new Date().toISOString(), resp: {} };
+  const ua = navigator.userAgent;
+  const pega = (re) => { const m = ua.match(re); return m ? m[1] : ''; };
+  function navegador() {
+    if (/SamsungBrowser/.test(ua)) return 'Samsung Internet ' + pega(/SamsungBrowser\/([\d.]+)/);
+    if (/MiuiBrowser/.test(ua)) return 'Navegador Xiaomi ' + pega(/MiuiBrowser\/([\d.]+)/);
+    if (/EdgA?\//.test(ua)) return 'Edge ' + pega(/EdgA?\/([\d.]+)/);
+    if (/OPR\//.test(ua)) return 'Opera ' + pega(/OPR\/([\d.]+)/);
+    if (/FxiOS/.test(ua)) return 'Firefox (iPhone) ' + pega(/FxiOS\/([\d.]+)/);
+    if (/CriOS/.test(ua)) return 'Chrome (iPhone) ' + pega(/CriOS\/([\d.]+)/);
+    if (/Firefox\//.test(ua)) return 'Firefox ' + pega(/Firefox\/([\d.]+)/);
+    if (/Chrome\//.test(ua)) return 'Chrome ' + pega(/Chrome\/([\d.]+)/);
+    if (/Safari\//.test(ua) && /Version\//.test(ua)) return 'Safari ' + pega(/Version\/([\d.]+)/);
+    return 'desconhecido';
+  }
+  function sistema() {
+    if (/Android/.test(ua)) return 'Android ' + pega(/Android ([\d.]+)/) + (/; ([^;)]*?) Build/.test(ua) ? ' · ' + pega(/; ([^;)]*?) Build/) : '');
+    if (/iPhone|iPad|iPod/.test(ua)) return 'iOS ' + pega(/OS ([\d_]+)/).replace(/_/g, '.');
+    if (/Windows/.test(ua)) return 'Windows';
+    if (/CrOS/.test(ua)) return 'ChromeOS';
+    if (/Mac OS X/.test(ua)) return 'macOS';
+    if (/Linux/.test(ua)) return 'Linux';
+    return 'desconhecido';
+  }
+  const t = (f) => { try { return !!f(); } catch (e) { return false; } };
+  R.nav = navegador(); R.so = sistema(); R.ua = ua;
+  R.tela = `${innerWidth}x${innerHeight} @${devicePixelRatio}`;
+  R.toque = navigator.maxTouchPoints || 0;
+  R.recursos = {
+    bigint: t(() => typeof BigInt === 'function' && BigInt(2) ** BigInt(64) > 0),
+    textenc: t(() => new TextEncoder().encode('ç').length === 2),
+    cripto: t(() => crypto.getRandomValues(new Uint32Array(1))),
+    pointer: t(() => 'PointerEvent' in window),
+    clippath: t(() => CSS.supports('clip-path', 'polygon(0 0, 100% 0, 100% 100%)')),
+    colorscheme: t(() => CSS.supports('color-scheme', 'only light')),
+    focusvisible: t(() => { document.querySelector(':focus-visible'); return true; }),
+    download: t(() => 'download' in document.createElement('a')),
+    local: t(() => { localStorage.setItem('diag:x', '1'); const ok = localStorage.getItem('diag:x') === '1'; localStorage.removeItem('diag:x'); return ok; }),
+    sessao: t(() => { sessionStorage.setItem('diag:x', '1'); const ok = sessionStorage.getItem('diag:x') === '1'; sessionStorage.removeItem('diag:x'); return ok; }),
+    voz: t(() => 'speechSynthesis' in window),
+  };
+  R.pref = { escuro: matchMedia('(prefers-color-scheme: dark)').matches, menosMov: matchMedia('(prefers-reduced-motion: reduce)').matches, online: navigator.onLine };
+  // detecção indireta de modo escuro forçado: o fundo pintado no canvas não muda, mas o navegador pode inverter a página
+  const NOMES = { bigint: 'Contas grandes (código de nota)', textenc: 'Acentos (TextEncoder)', cripto: 'Sorteio seguro', pointer: 'Arrastar (Pointer Events)', clippath: 'Recortes de desenho', colorscheme: 'Bloqueio do modo escuro automático', focusvisible: 'Contorno do teclado', download: 'Baixar arquivos (PNG)', local: 'Guardar progresso (localStorage)', sessao: 'Memória da aba', voz: 'Leitura em voz alta (recurso)' };
+  function desenhar() {
+    const linhas = [['Navegador', R.nav], ['Sistema', R.so], ['Tela', R.tela + (R.toque ? ` · toque (${R.toque} pontos)` : '')]];
+    for (const [k, v] of Object.entries(R.recursos)) linhas.push([NOMES[k], v ? '<span class="ok">funciona</span>' : '<span class="ruim">não funciona</span>']);
+    linhas.push(['Gerar o PNG do crachá', R.png === undefined ? 'testando…' : (R.png ? '<span class="ok">funciona</span>' : '<span class="ruim">não funciona</span>')]);
+    linhas.push(['Vozes em português', R.vozes === undefined ? 'procurando…' : (R.vozes.length ? `<span class="ok">${R.vozes.length}</span> (${R.vozes.slice(0, 3).join(', ')})` : '<span class="ruim">nenhuma</span>')]);
+    linhas.push(['Aparelho pede tema escuro', R.pref.escuro ? 'sim (o jogo força o claro)' : 'não']);
+    linhas.push(['Arrastar (teste 4)', R.arrastou ? '<span class="ok">funcionou</span>' : 'ainda não testado']);
+    document.getElementById('auto').innerHTML = linhas.map(([a, b]) => `<tr><td>${a}</td><td>${b}</td></tr>`).join('');
+    atualizarCodigo();
+  }
+  function atualizarCodigo() {
+    const txt = JSON.stringify(R);
+    let b64;
+    try { b64 = btoa(unescape(encodeURIComponent(txt))); } catch (e) { b64 = txt; }
+    document.getElementById('codigo').value = 'DIAG1|' + b64;
+  }
+  // PNG
+  try {
+    const c = document.createElement('canvas'); c.width = 4; c.height = 4;
+    const g = c.getContext('2d'); g.fillStyle = '#1f3a93'; g.fillRect(0, 0, 4, 4);
+    c.toBlob(b => { R.png = !!(b && b.size > 0 && b.type === 'image/png'); desenhar(); }, 'image/png');
+  } catch (e) { R.png = false; }
+  // vozes
+  function lerVozes() {
+    try { R.vozes = speechSynthesis.getVoices().filter(v => /^pt/i.test(v.lang)).map(v => `${v.name} [${v.lang}${v.localService ? '' : ', online'}]`); } catch (e) { R.vozes = []; }
+    desenhar();
+  }
+  try { speechSynthesis.addEventListener('voiceschanged', lerVozes); } catch (e) { }
+  setTimeout(lerVozes, 1500);
+  document.getElementById('ouvir').onclick = () => {
+    try {
+      const u = new SpeechSynthesisUtterance('Bom dia! Este é o teste de voz da Torre Horizonte.');
+      u.lang = 'pt-BR';
+      const v = speechSynthesis.getVoices().find(x => /^pt/i.test(x.lang)); if (v) u.voice = v;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    } catch (e) { R.erroVoz = String(e); atualizarCodigo(); }
+  };
+  // perguntas
+  document.querySelectorAll('[data-pergunta]').forEach(g => g.querySelectorAll('button').forEach(b => b.onclick = () => {
+    g.querySelectorAll('button').forEach(x => x.classList.remove('sel')); b.classList.add('sel');
+    R.resp[g.dataset.pergunta] = Number(b.dataset.v); atualizarCodigo();
+  }));
+  // arrastar
+  const cartao = document.getElementById('cartao'), alvo = document.getElementById('alvo');
+  let arr = null;
+  cartao.addEventListener('pointerdown', e => { arr = { x: e.clientX, y: e.clientY }; try { cartao.setPointerCapture(e.pointerId); } catch (er) { } R.tipoPonteiro = e.pointerType; });
+  cartao.addEventListener('pointermove', e => { if (!arr) return; cartao.style.transform = `translate(${e.clientX - arr.x}px, ${e.clientY - arr.y}px)`; });
+  cartao.addEventListener('pointerup', e => {
+    if (!arr) return; arr = null; cartao.style.transform = '';
+    const r = alvo.getBoundingClientRect();
+    if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) { R.arrastou = true; alvo.textContent = 'Funcionou!'; alvo.classList.add('cheio'); desenhar(); }
+  });
+  // Samsung Internet: oferece abrir no Chrome (intent do Android)
+  if (/SamsungBrowser/.test(ua) && /Android/.test(ua)) {
+    document.getElementById('samsung').hidden = false;
+    const alvoUrl = location.href.replace(/\/[^/]*$/, '/index.html');
+    document.getElementById('abrir-chrome').href = 'intent://' + alvoUrl.replace(/^https?:\/\//, '') + '#Intent;scheme=https;package=com.android.chrome;end';
+  }
+  document.getElementById('copiar').onclick = async () => {
+    const ta = document.getElementById('codigo');
+    try { await navigator.clipboard.writeText(ta.value); document.getElementById('copiado').textContent = 'Copiado!'; }
+    catch (e) { ta.select(); try { document.execCommand('copy'); document.getElementById('copiado').textContent = 'Copiado!'; } catch (er) { document.getElementById('copiado').textContent = 'Selecione o texto e copie manualmente.'; } }
+  };
+  desenhar();
+})();
+</script>
+</body>
+</html>
